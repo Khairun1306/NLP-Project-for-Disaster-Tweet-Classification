@@ -1,129 +1,285 @@
-# 🌪️ Disaster Tweet Classification — NLP Project
+# 🌪️ Disaster Tweet Classification using NLP
 
-## Overview
-End-to-end NLP project to classify tweets as **Disaster** or **Non-Disaster** using machine learning. Built across 3 structured Jupyter notebooks.
+An end-to-end **Natural Language Processing (NLP)** project that classifies tweets as **Disaster** or **Non-Disaster** using Machine Learning.
 
-## ⭐ Project Highlights
+The project demonstrates the complete machine learning workflow—from data exploration and preprocessing to model training, evaluation, and deployment through an interactive **Gradio** web application.
 
-- End-to-end NLP workflow
+---
+
+## 📌 Project Highlights
+
+- End-to-end NLP pipeline
 - Exploratory Data Analysis (EDA)
 - Text preprocessing and cleaning
 - TF-IDF feature extraction
-- Sentiment analysis
--  Handcrafted features and sentiment analysis
-- Comparison of five machine learning models
+- Sentiment analysis using TextBlob
+- Feature engineering (10 handcrafted features)
+- Comparison of multiple Machine Learning models
 - Hyperparameter tuning using RandomizedSearchCV
+- 5-Fold Stratified Cross Validation
 - Comprehensive model evaluation
-- Interactive Gradio web application for real-time tweet classification
+- Interactive Gradio web application
 
 ---
 
-## 📁 Project Structure
+# 📂 Project Structure
 
-```
-disaster-tweet-classification/
+```text
+NLP-Project-for-Disaster-Tweet-Classification/
 │
-├── twitter_disaster.csv               ← Original dataset (7,613 tweets)
+├── artefacts/
+│   ├── best_model.pkl
+│   ├── scaler.pkl
+│   ├── tfidf_vectorizer.pkl
+│   ├── cleaned_tweets.csv
+│   ├── model_summary.csv
+│   ├── X_train.npz
+│   ├── X_test.npz
+│   ├── y_train.npy
+│   └── y_test.npy
 │
-├── notebook1_data_exploration.ipynb   ← Part 1: Data Exploration & Preparation
-├── notebook2_modelling.ipynb          ← Part 2: Feature Engineering & Model Training
-├── notebook3_evaluation.ipynb         ← Part 3 & 4: Evaluation, Validation & Deployment
+├── images/
+│   ├── target_distribution.png
+│   ├── tweet_length_distribution.png
+│   ├── wordcloud_disaster.png
+│   ├── wordcloud_non_disaster.png
+│   ├── confusion_matrix.png
+│   ├── roc_curve.png
+│   ├── precision_recall_curve.png
+│   └── learning_curve.png
 │
-└── artefacts/                         ← Auto-created by notebooks
-    ├── cleaned_tweets.csv
-    ├── tfidf_vectorizer.pkl
-    ├── scaler.pkl
-    ├── best_model.pkl
-    ├── X_train.npz / X_test.npz
-    ├── y_train.npy / y_test.npy
-    └── model_summary.csv
+├── notebook1_data_exploration.ipynb
+├── notebook2_modelling.ipynb
+├── notebook3_evaluation.ipynb
+│
+├── predictor.py
+├── app.py
+│
+├── requirements.txt
+├── .gitignore
+├── README.md
+└── twitter_disaster.csv
 ```
 
 ---
 
-## 🚀 How to Run
+# 📊 Dataset
 
-### 1. Install Dependencies
+**Source:** Kaggle – Natural Language Processing with Disaster Tweets
+
+**Dataset Size:** 7,613 Tweets
+
+Target Labels:
+
+- **1** → Disaster Tweet
+- **0** → Non-Disaster Tweet
+
+---
+
+# 🏗️ Project Workflow
+
+### 📘 Notebook 1 – Data Exploration & Preparation
+
+- Load dataset
+- Exploratory Data Analysis (EDA)
+- Missing value analysis
+- Duplicate removal
+- Text preprocessing
+- Sentiment analysis
+- Feature engineering
+- TF-IDF Vectorization
+- Train/Test Split
+- Save processed artefacts
+
+---
+
+### 🤖 Notebook 2 – Model Training
+
+Models trained:
+
+- Logistic Regression
+- Naive Bayes
+- Linear SVM
+- Random Forest
+- XGBoost
+
+Includes:
+
+- 5-Fold Stratified Cross Validation
+- Hyperparameter tuning
+- Model comparison
+- Performance evaluation
+- Confusion Matrix
+- Classification Report
+- Save best model
+
+---
+
+### 📈 Notebook 3 – Model Evaluation
+
+Includes:
+
+- ROC Curve
+- Precision-Recall Curve
+- Learning Curve
+- Error Analysis
+- Final Model Summary
+- Deployment Overview
+
+---
+
+# 🧠 Feature Engineering
+
+The final model combines **TF-IDF features** with **10 handcrafted numerical features**:
+
+- Has hashtag
+- Has mention
+- Has URL
+- Character count
+- Word count
+- Exclamation count
+- Question count
+- Uppercase ratio
+- Sentiment polarity
+- Sentiment subjectivity
+
+---
+
+# 🏆 Best Performing Model
+
+**Logistic Regression**
+
+The final model was selected based on its superior performance after hyperparameter tuning and cross-validation.
+
+The trained model is saved as:
+
+- `best_model.pkl`
+
+---
+
+# 🖥️ Application Architecture
+
+The deployment is organized into separate modules:
+
+| File | Purpose |
+|------|---------|
+| `predictor.py` | Loads artefacts, preprocesses tweets, extracts features, and performs prediction |
+| `app.py` | Gradio web interface |
+| `artefacts/` | Stores trained model, scaler, TF-IDF vectorizer and processed data |
+
+---
+
+# 🚀 Getting Started
+
+## 1️⃣ Clone the Repository
+
 ```bash
-### 1. Install Dependencies
+git clone https://github.com/Khairun1306/NLP-Project-for-Disaster-Tweet-Classification.git
+```
+
+Move into the project directory:
+
 ```bash
-pip install pandas numpy scikit-learn matplotlib seaborn wordcloud nltk textblob xgboost gradio scipy joblib
+cd NLP-Project-for-Disaster-Tweet-Classification
 ```
-
-### 2. Place the dataset
-Put `twitter_disaster.csv` in the same folder as the notebooks.
-
-### 3. Run notebooks in order
-```
-notebook1_data_exploration.ipynb  →  notebook2_modelling.ipynb  →  notebook3_evaluation.ipynb
-```
-Each notebook saves artefacts that the next notebook loads.
 
 ---
 
-## 📓 Notebook Breakdown
+## 2️⃣ Install Dependencies
 
-### Notebook 1 — Data Exploration & Preparation
-| Task | Details |
-|------|---------|
-| Data loading | Pandas, shape/type inspection |
-| Visualisations | Class distribution, tweet length histograms, top keywords, word clouds |
-| Text cleaning | Lowercase → URL removal → Punctuation strip → Tokenise → Stopword filter → Lemmatise |
-| Feature engineering | TF-IDF (10k uni+bigrams) + 8 meta-features (hashtags, mentions, URLs, length, etc.) |
-| Data split | 80/20 stratified train/test |
-| **Saved** | `tfidf_vectorizer.pkl`, `X_train/test.npz`, `y_train/test.npy`, `cleaned_tweets.csv` |
-
-### Notebook 2 — Feature Engineering & Model Training
-| Task | Details |
-|------|---------|
-| Models compared | Logistic Regression, Naive Bayes, Linear SVM, Random Forest, XGBoost |
-| Evaluation | 5-fold stratified cross-validation, F1 score |
-| Tuning | RandomizedSearchCV (20 iterations LR / 15 XGBoost) |
-| **Saved** | `best_model.pkl`, `scaler.pkl`, `model_summary.csv` |
-
-### Notebook 3 — Evaluation, Validation & Deployment
-| Task | Details |
-|------|---------|
-| Confusion matrices | Raw counts + normalised |
-| ROC Curve | With AUC score |
-| Precision-Recall Curve | With optimal threshold analysis |
-| Learning curves | Bias/variance diagnosis |
-| Error analysis | Sample false positives & false negatives |
-| **Web App** | Gradio interface for live tweet classification |
-
----
-
-## 🏆 Model Performance (expected)
-
-| Model | CV F1 | Test F1 | ROC-AUC |
-|-------|-------|---------|---------|
-| Logistic Regression (tuned) | ~0.82 | ~0.81 | ~0.89 |
-| XGBoost (tuned) | ~0.81 | ~0.80 | ~0.88 |
-| Linear SVM | ~0.80 | ~0.79 | N/A |
-| Naive Bayes | ~0.77 | ~0.76 | ~0.85 |
-
-*Actual values will vary depending on random seed and hyperparameter search results.*
-
----
-
-## 🌐 Web App
-Run the last section of `notebook3_evaluation.ipynb` to launch a **Gradio** web interface where you can paste any tweet and get an instant disaster/non-disaster prediction with confidence scores.
-
-To share publicly, change `demo.launch(share=False)` → `demo.launch(share=True)`.
-
----
-
-## 📦 Dependencies
+```bash
+pip install -r requirements.txt
 ```
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-wordcloud
-nltk
-textblob
-xgboost
-gradio
-scipy
-joblib
+
+---
+
+## 3️⃣ Launch the Application
+
+```bash
+python app.py
+```
+
+The Gradio application will open automatically in your default web browser.
+
+---
+
+# 📷 Project Outputs
+
+## Target Distribution
+
+![](images/target_distribution.png)
+
+---
+
+## Tweet Length Distribution
+
+![](images/tweet_length_distribution.png)
+
+---
+
+## Disaster Tweet Word Cloud
+
+![](images/wordcloud_disaster.png)
+
+---
+
+## Non-Disaster Tweet Word Cloud
+
+![](images/wordcloud_non_disaster.png)
+
+---
+
+## Confusion Matrix
+
+![](images/confusion_matrix.png)
+
+---
+
+## ROC Curve
+
+![](images/roc_curve.png)
+
+---
+
+## Precision-Recall Curve
+
+![](images/precision_recall_curve.png)
+
+---
+
+## Learning Curve
+
+![](images/learning_curve.png)
+
+---
+
+# 🛠️ Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- NLTK
+- TextBlob
+- SciPy
+- XGBoost
+- Matplotlib
+- WordCloud
+- Gradio
+
+---
+
+# 👩‍💻 Author
+
+**Khairun Nisa**
+
+GitHub: https://github.com/Khairun1306
+
+---
+
+# 🙏 Acknowledgements
+
+- Kaggle – Natural Language Processing with Disaster Tweets
+- Scikit-learn Documentation
+- NLTK Documentation
+- Gradio Documentation
