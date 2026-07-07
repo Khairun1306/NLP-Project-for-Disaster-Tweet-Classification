@@ -1,0 +1,11 @@
+gradio
+joblib
+matplotlib
+nltk
+numpy
+pandas
+scikit-learn
+scipy
+textblob
+wordcloud
+xgboost
